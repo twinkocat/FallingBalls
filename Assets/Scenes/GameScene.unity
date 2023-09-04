@@ -1037,12 +1037,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballSpawner: {fileID: 101118833}
   _ballDeathTrigger: {fileID: 10089624}
+  _valuePanelViewModel: {fileID: 1983360953}
   _ballPrefab: {fileID: 188379689119767599, guid: 2f9cff75a94bc694aa6e6a87a6539b66, type: 3}
   _ballsParent: {fileID: 1904421783}
   _isExpandable: 1
   _isActiveByDefault: 0
   _capacity: 10
-  _spawnDelay: 0.86
+  _spawnDelay: 1
 --- !u!4 &1061705961
 Transform:
   m_ObjectHideFlags: 0
@@ -1051,7 +1052,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061705959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6229597, y: 1.9728625, z: -8.944132}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1433,7 +1434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904421782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.021083841, y: 0.09839125, z: -8.988739}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

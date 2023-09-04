@@ -16,29 +16,27 @@ namespace twinkocat
         [SerializeField] private float  _minSpeed;
         [SerializeField] private float  _maxSpeed;
 
-        private int                     _score;
         private float                   _speed;
         private SpriteRenderer          _spriteRenderer;
 
         public float                    MinSpeed => _minSpeed;
         public float                    MaxSpeed => _maxSpeed;
         public float                    CurrentSpeed => _speed;
-        public int                      BallScore => _score;
 
         public event Action<Ball>       OnBallClicked;
 
 
-        public void OnCreate()
+        void IPoolObject.OnCreate()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            var kek = "lol";
         }
 
-        public void OnGet()
+        void IPoolObject.OnPop()
         {
             SetBallSpeed(Random.Range(_minSpeed, _maxSpeed));
             SetBallRadius(Random.Range(_minRadius, _maxRadius));
             SetBallColor(Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f)); // Pick a random, saturated and not-too-dark color
-            SetBallScore((int)(CurrentSpeed + ((transform.localScale.x * SCALE_SCORE_MIDIFER) - transform.localScale.x)));
         }
 
         private void Update()
@@ -46,13 +44,13 @@ namespace twinkocat
             transform.Translate(Vector3.down * _speed * Time.deltaTime);
         }
 
-        public void OnReturn() { }
+        void IPoolObject.OnReturn() { }
+
+        public int GetBallScore() => (int)(CurrentSpeed + ((transform.localScale.x * SCALE_SCORE_MIDIFER) - transform.localScale.x));
 
         public void SetMinSpeed(float value) => _minSpeed = value;
 
         public void SetMaxSpeed(float value) => _maxSpeed = value;
-
-        private void SetBallScore(int value) => _score = value;
 
         private void SetBallColor(Color color) => _spriteRenderer.color = color;
 
