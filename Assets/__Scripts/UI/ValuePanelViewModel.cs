@@ -14,30 +14,34 @@ namespace twinkocat
         private ReactiveProperty<int>           _healthScoreProperty;
 
 
-        private void Awake()
+        public void Init()
         {
-            _currentScoreProperty = new ReactiveProperty<int>();
-            _topScoreProperty     = new ReactiveProperty<int>();
-            _healthScoreProperty  = new ReactiveProperty<int>();
-
-            _currentScoreProperty.OnValueChanged += OnCurrentScoreChanged;
-            _topScoreProperty.OnValueChanged     += OnTopScoreChanged;
-            _healthScoreProperty.OnValueChanged  += OnHealthScoreChanged;
+            InitializeProperties();
+            BindProperties();
         }
 
-        private void OnCurrentScoreChanged(int value)   => _currentScore.text = value.ToString();
-        private void OnTopScoreChanged(int value)       => _topScore.text = value.ToString();
-        private void OnHealthScoreChanged(int value)    => _healthScore.text = value.ToString();
+        private void InitializeProperties()
+        {
+            _currentScoreProperty = new ReactiveProperty<int>();
+            _topScoreProperty = new ReactiveProperty<int>();
+            _healthScoreProperty = new ReactiveProperty<int>();
+        }
+        private void BindProperties()
+        {
+            _currentScoreProperty.Subscribe(value => _currentScore.text = value.ToString());
+            _topScoreProperty.Subscribe(value => _topScore.text = value.ToString());
+            _healthScoreProperty.Subscribe(value => _healthScore.text = value.ToString());
+        }
+
+        private void OnDestroy()
+        {
+            _currentScoreProperty.Unsubscribe();
+            _topScoreProperty.Unsubscribe();
+            _healthScoreProperty.Unsubscribe();
+        }
         
         public void SetCurrentScore(int value) => _currentScoreProperty.Value = value;
         public void SetTopScore(int value)     => _topScoreProperty.Value     = value;
         public void SetHealthScore(int value)  => _healthScoreProperty.Value  = value;
-
-        private void OnDestroy()
-        {
-            _currentScoreProperty.OnValueChanged -= OnCurrentScoreChanged;
-            _topScoreProperty.OnValueChanged     -= OnTopScoreChanged;
-            _healthScoreProperty.OnValueChanged  -= OnHealthScoreChanged;
-        }
     }
 }

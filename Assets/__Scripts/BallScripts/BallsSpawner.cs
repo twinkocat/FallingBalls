@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace twinkocat
@@ -12,6 +13,8 @@ namespace twinkocat
         private float                               _delay;
 
         private BallsPool                           _ballsPool;
+
+        public event Action<Ball>                   OnBallSpawn;
         
 
         public void Init(BallsPool ballsPool, float delay)
@@ -25,14 +28,14 @@ namespace twinkocat
 
         private void Update()
         {
-            if (Time.time > _lastTimeSpawned + _delay)
+            if (Time.time > _lastTimeSpawned)
             {
-                var ball = _ballsPool.GetObject();
+                var ball = _ballsPool.PopObject();
                 ball.transform.position = new Vector2(
-                                            Random.Range(_minScreenWorldValue.x + Y_OFFSET_VALUE, -_minScreenWorldValue.x - Y_OFFSET_VALUE),
-                                            -_minScreenWorldValue.y + START_SPAWN_OFFSET_VALUE);
-
-                _lastTimeSpawned = Time.time;
+                                            UnityEngine.Random.Range(_minScreenWorldValue.x + Y_OFFSET_VALUE, - _minScreenWorldValue.x - Y_OFFSET_VALUE),
+                                            - _minScreenWorldValue.y + START_SPAWN_OFFSET_VALUE);
+                OnBallSpawn?.Invoke(ball);
+                _lastTimeSpawned = Time.time + _delay;
             }
         }
 

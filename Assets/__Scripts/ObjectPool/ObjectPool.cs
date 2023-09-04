@@ -31,13 +31,13 @@ namespace twinkocat
             _poolObjectCount = poolObjectCount;
             _parent = parent;
 
-            CreatePool();
+            FillPool();
         }
 
         /// <summary>
-        /// Create object pool.
+        /// Fill object pool.
         /// </summary>
-        protected void CreatePool()
+        protected void FillPool()
         {
             _objectPool = new Stack<T>(_poolObjectCount);
 
@@ -63,7 +63,7 @@ namespace twinkocat
         /// <summary>
         /// Get object from pool.
         /// </summary>
-        public T GetObject()
+        public T PopObject()
         {
             if (_objectPool.TryPop(out T obj))
             {
@@ -113,7 +113,7 @@ namespace twinkocat
             }
         }
 
-        protected virtual void OnGet(T obj) => (obj as IPoolObject)?.OnGet();
+        protected virtual void OnGet(T obj) => (obj as IPoolObject)?.OnPop();
 
         protected virtual void OnCreate(T obj) => (obj as IPoolObject)?.OnCreate();
 

@@ -17,6 +17,15 @@ namespace twinkocat
                 OnValueChanged?.Invoke(_value);
             }
         }
+        public void Subscribe(Action<T> subscriber)
+        {
+            OnValueChanged += subscriber;
+        }
+
+        public void Unsubscribe()
+        {
+            OnValueChanged = null;
+        }
     }
 }
 

@@ -14,7 +14,7 @@ namespace twinkocat
         /// <summary>
         /// Invokes when object is get from pool.
         /// </summary>
-        void OnGet();
+        void OnPop();
 
         /// <summary>
         /// Invokes when object is return to pool.
